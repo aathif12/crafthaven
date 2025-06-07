@@ -1,6 +1,12 @@
 export default function HeroSection() {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 items-center px-10  gap-10 bg-orange-300">
+    <section className="relative grid grid-cols-1 md:grid-cols-2 items-center gap-10 bg-orange-300">
+      {/* Slightly below center button */}
+      <button className="absolute top-[80%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 px-10 py-3 bg-white text-[#252B42] text-lg font-medium hover:bg-[#252B42] hover:text-white transition shadow-lg">
+        Shop now →
+      </button>
+
+      {/* Left Image */}
       <div className="relative">
         <img
           src="/bowl.png"
@@ -12,8 +18,10 @@ export default function HeroSection() {
           <button className="block">←</button>
         </div>
       </div>
-      <div>
-        <h1 className="text-5xl md:text-6xl font-serif font-light text-[#F2F6EF] leading-tight absolute">
+
+      {/* Right Content with Heading and Image */}
+      <div className="relative">
+        <h1 className="text-9xl font-normal font-['Ivy_Mode'] leading-[118.80px] text-[#F2F6EF] leading-tight absolute z-10">
           Welcome to our
           <br />
           world of
@@ -24,12 +32,9 @@ export default function HeroSection() {
         </h1>
         <img
           src="/craft.png"
-          alt="Handcrafted Bowl"
+          alt="Craft Visual"
           className="w-[1000px] h-[1000px] object-contain mx-auto object-left-top"
         />
-        <button className="mt-10 px-6 py-3 bg-white border border-[#252B42] text-[#252B42] text-lg font-medium hover:bg-[#252B42] hover:text-white transition">
-          Shop now →
-        </button>
       </div>
     </section>
   );
