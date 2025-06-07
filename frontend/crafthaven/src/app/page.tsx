@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
-import FeaturedCategories from "./components/FeaturedCategories";
+
+import Ingredients from "./components/Ingredients";
 
 export default function Home() {
   return (
@@ -10,8 +11,9 @@ export default function Home() {
       <Header />
 
       {/* Main content (Hero section and others) */}
-      <main className="flex flex-col gap-[32px] items-center sm:items-start">
+      <main className="flex flex-col  items-center sm:items-start">
         <HeroSection />
+        <Ingredients />
         {/* You can add FeaturedCategories here if needed */}
       </main>
 
