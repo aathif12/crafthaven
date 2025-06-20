@@ -12,7 +12,7 @@ export default function Home() {
         <HeroSection />
         <Ingredients />
       </main>
-      <ShoppingCart />
+
       <ProductCard />
       <footer className="flex gap-[24px] flex-wrap items-center justify-center"></footer>
     </div>
