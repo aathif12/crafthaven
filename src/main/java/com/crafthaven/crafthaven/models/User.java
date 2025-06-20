@@ -1,3 +1,9 @@
+package com.crafthaven.crafthaven.models;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,8 +22,8 @@ public class User {
     private String phone;
     private String address;
 
-    @Enumerated(EnumType.STRING)
-    private Role role; // CUSTOMER, SELLER, ADMIN
+    // @Enumerated(EnumType.STRING)
+    // private Role role; // CUSTOMER, SELLER, ADMIN
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -67,14 +73,6 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public LocalDateTime getCreatedAt() {
