@@ -1,7 +1,9 @@
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
+import ImageUploader from "./components/ImageUploader";
 import Ingredients from "./components/Ingredients";
-import ProductCard from "./components/ProductCart";
+import ProductCard from "./components/ProductCard";
+import ProductList from "./components/ProductList";
 import ShoppingCart from "./components/ShoppingCart";
 
 export default function Home() {
@@ -13,7 +15,7 @@ export default function Home() {
         <Ingredients />
       </main>
 
-      <ProductCard />
+      <ProductList />
       <footer className="flex gap-[24px] flex-wrap items-center justify-center"></footer>
     </div>
   );
