@@ -1,3 +1,6 @@
+import MiniCart from "./minicart";
+import ShoppingCart from "./ShoppingCart";
+
 // components/Header.js
 export default function Header() {
   return (
@@ -28,6 +31,7 @@ export default function Header() {
           <a href="#" className="hover:text-orange-600 transition">
             Clothing
           </a>
+          <MiniCart />
         </nav>
 
         {/* Mobile Hamburger */}
