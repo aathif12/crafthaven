@@ -1,8 +1,41 @@
-import MiniCart from "./minicart";
-import ShoppingCart from "./ShoppingCart";
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import MiniCart from "./MiniCart";
 
-// components/Header.js
 export default function Header() {
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const router = useRouter();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (query.trim().length > 1) {
+      fetch(`http://localhost:8080/api/products/suggestions?query=${query}`)
+        .then((res) => res.json())
+        .then(setSuggestions);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [query]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      router.push(`/search?query=${encodeURIComponent(query)}`);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (title: string) => {
+    setQuery(title);
+    setShowSuggestions(false);
+    router.push(`/search?query=${encodeURIComponent(title)}`);
+  };
+
   return (
     <header className="w-full bg-white px-6 py-4 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -14,8 +47,41 @@ export default function Header() {
           </span>
         </div>
 
+        {/* Search Bar */}
+        <div className="relative mx-6 flex-1 hidden md:block">
+          <form onSubmit={handleSearch} className="flex">
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="Search products..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none text-black"
+            />
+            <button
+              type="submit"
+              className="bg-orange-600 text-white px-4 py-2 rounded-r-md hover:bg-orange-700"
+            >
+              Search
+            </button>
+          </form>
+          {showSuggestions && suggestions.length > 0 && (
+            <ul className="absolute z-50 bg-white border border-gray-300 mt-1 w-full max-h-60 overflow-y-auto shadow-lg rounded-md ">
+              {suggestions.map((item: any) => (
+                <li
+                  key={item.id}
+                  onClick={() => handleSuggestionClick(item.title)}
+                  className="px-4  text-amber-900 font-bold py-2 hover:bg-orange-100 cursor-pointer"
+                >
+                  {item.title}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         {/* Navigation */}
-        <nav className="hidden md:flex space-x-6 text-sm lg:text-base text-gray-700">
+        <nav className="hidden md:flex items-center space-x-6 text-sm lg:text-base text-gray-700">
           <a href="#" className="hover:text-orange-600 transition">
             Jewelry
           </a>
@@ -33,26 +99,6 @@ export default function Header() {
           </a>
           <MiniCart />
         </nav>
-
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
-          <button>
-            <svg
-              className="w-6 h-6 text-gray-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        </div>
       </div>
     </header>
   );
