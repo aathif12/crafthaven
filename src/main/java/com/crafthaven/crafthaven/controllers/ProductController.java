@@ -15,6 +15,11 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @GetMapping("/suggestions")
+    public List<Product> getSuggestions(@RequestParam String query) {
+        return productRepository.findTop5ByTitleContainingIgnoreCase(query);
+    }
+
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -22,6 +27,11 @@ public class ProductController {
     @GetMapping
     public List<Product> getProducts() {
         return productRepository.findAllWithCategory();
+    }
+
+    @GetMapping("/search")
+    public List<Product> searchProducts(@RequestParam String query) {
+        return productRepository.findByTitleContainingIgnoreCase(query);
     }
 
     @GetMapping("/all")
