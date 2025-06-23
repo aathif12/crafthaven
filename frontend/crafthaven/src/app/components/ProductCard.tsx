@@ -28,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="bg-white rounded-xl shadow-md p-4 flex flex-col justify-between">
-      <div className="relative w-full h-100 mb-4 rounded-xl overflow-hidden bg-gray-100">
+      <div className="relative w-full h-100 mb-4 rounded-xl overflow-hidden p-4 ">
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}
@@ -52,13 +52,13 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="flex justify-between gap-2 mt-auto">
         <button
           onClick={() => addToCart(product)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm w-full"
+          className="bg-[#ffd6c3] text-black font-bold px-4 py-2 rounded hover:bg-amber-300 text-sm w-full"
         >
           Add to Cart
         </button>
         <button
           onClick={handleBuyNow}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm w-full"
+          className="bg-[#FF5506] text-white font-bold px-4 py-2 rounded hover:bg-green-600 text-sm w-full"
         >
           Buy
         </button>

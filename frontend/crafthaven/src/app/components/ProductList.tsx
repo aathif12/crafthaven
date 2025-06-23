@@ -40,17 +40,17 @@ export default function ProductList() {
         );
 
   return (
-    <div className="p-4">
+    <div className="p-4   bg-[#FFF3EE]  shadow-md">
       {/* Category Filter Buttons */}
-      <div className="flex flex-wrap gap-3 mb-6 justify-center">
+      <div className="flex flex-wrap gap-3 mb-6 justify-center ">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+            className={`px-8 py-4 rounded-full text-sm font-bold transition ${
               selectedCategory === cat
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-blue-100"
+                ? "bg-[#FF5506] text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-[#ffd6c3]"
             }`}
           >
             {cat}
@@ -59,7 +59,7 @@ export default function ProductList() {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 bg-[#FFF3EE]">
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
