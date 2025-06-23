@@ -1,23 +1,76 @@
 package com.crafthaven.crafthaven.models;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "products")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "image_url")
+
+    private String title;
+    private String description;
+    private double price;
+    private int stock;
+    private double rating;
     private String imageUrl;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties("products")
+    private Category category;
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -27,43 +80,11 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    private String title;
-    private String description;
-    private Double price;
-    private Integer stock;
-
-    private Double rating;
-    private LocalDateTime createdAt;
-
-    // 👉 Add GETTERS for all fields
-
-    public Long getId() {
-        return id;
+    public Category getCategory() {
+        return category;
     }
 
-    public String getTitle() {
-        return title;
+    public void setCategory(Category category) {
+        this.category = category;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    // (Also add SETTERS if needed)
 }

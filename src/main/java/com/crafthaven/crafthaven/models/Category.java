@@ -1,19 +1,23 @@
 package com.crafthaven.crafthaven.models;
 
 import jakarta.persistence.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "categories")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String icon;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Product> products;
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -30,11 +34,11 @@ public class Category {
         this.name = name;
     }
 
-    public String getIcon() {
-        return icon;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
