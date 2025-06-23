@@ -8,29 +8,62 @@ type Product = {
   title: string;
   price: number;
   description: string;
-  image_url: string; // Ensure this matches your backend JSON key
+  imageUrl: string;
+  category: {
+    id: number;
+    name: string;
+  };
 };
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     fetch("http://localhost:8080/api/products")
       .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched products:", data);
-        data.forEach((product: Product) =>
-          console.log("Image URL:", product.image_url)
-        );
-        setProducts(data);
-      });
+      .then((data) => setProducts(data));
   }, []);
 
+  const categories = [
+    "All",
+    ...Array.from(
+      new Set(products.map((p) => p.category?.name).filter(Boolean))
+    ),
+  ];
+
+  const filteredProducts =
+    selectedCategory === "All"
+      ? products
+      : products.filter(
+          (product) => product.category.name === selectedCategory
+        );
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-100 p-4">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div className="p-4">
+      {/* Category Filter Buttons */}
+      <div className="flex flex-wrap gap-3 mb-6 justify-center">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+              selectedCategory === cat
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-blue-100"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 }
