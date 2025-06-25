@@ -27,10 +27,10 @@ export default function BuyPage() {
           </div>
         )}
       </div>
-      <h1 className="text-xl font-bold">{title}</h1>
+      <h1 className="text-xl font-bold text-amber-950">{title}</h1>
       <p className="text-gray-700 my-2">{desc}</p>
-      <p className="text-lg font-semibold">Rs. {price}</p>
-      <button className="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+      <p className="text-lg font-semibold text-amber-950">Rs. {price}</p>
+      <button className="mt-4 bg-[#FF5506] text-white px-4 py-2 rounded">
         Proceed to Payment
       </button>
     </div>
