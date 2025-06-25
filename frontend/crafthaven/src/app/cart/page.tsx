@@ -78,7 +78,7 @@ export default function CartPage() {
       <div className="mt-6 text-right">
         <Link
           href="/checkout"
-          className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          className="px-6 py-2 bg-amber-950 text-white rounded font-bold hover:bg-amber-950 "
         >
           Proceed to Checkout
         </Link>
