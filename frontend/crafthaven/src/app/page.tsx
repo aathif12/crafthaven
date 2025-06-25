@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import ImageUploader from "./components/ImageUploader";
@@ -16,7 +17,9 @@ export default function Home() {
       </main>
 
       <ProductList />
-      <footer className="flex gap-[24px] flex-wrap items-center justify-center"></footer>
+      <footer className="flex gap-[24px] flex-wrap items-center justify-center">
+        <Footer />
+      </footer>
     </div>
   );
 }
