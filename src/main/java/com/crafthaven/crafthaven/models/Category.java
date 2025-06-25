@@ -13,6 +13,16 @@ public class Category {
     private Long id;
 
     private String name;
+    private String slug; // <--- NEW FIELD
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Product> products;

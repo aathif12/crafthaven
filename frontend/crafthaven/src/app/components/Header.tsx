@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import MiniCart from "./MiniCart";
+import Link from "next/link";
 
 export default function Header() {
   const [query, setQuery] = useState("");
@@ -81,23 +82,31 @@ export default function Header() {
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 text-sm lg:text-base text-gray-700">
-          <a href="#" className="hover:text-orange-600 transition">
+        <nav className="hidden md:flex space-x-6 text-sm lg:text-base text-gray-700">
+          <Link
+            href="/category/Jewelry"
+            className="hover:text-orange-600 transition"
+          >
             Jewelry
-          </a>
-          <a href="#" className="hover:text-orange-600 transition">
-            Art Prints
-          </a>
-          <a href="#" className="hover:text-orange-600 transition">
-            Paper Goods
-          </a>
-          <a href="#" className="hover:text-orange-600 transition">
+          </Link>
+          <Link
+            href="/category/wood-carvings"
+            className="hover:text-orange-600 transition"
+          >
+            Wood Carvings
+          </Link>
+          <Link
+            href="/category/clay-items"
+            className="hover:text-orange-600 transition"
+          >
+            Clay Items
+          </Link>
+          <Link
+            href="/category/home-living"
+            className="hover:text-orange-600 transition"
+          >
             Home & Living
-          </a>
-          <a href="#" className="hover:text-orange-600 transition">
-            Clothing
-          </a>
-          <MiniCart />
+          </Link>
         </nav>
       </div>
     </header>
