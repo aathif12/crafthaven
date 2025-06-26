@@ -24,17 +24,22 @@ export default function CartPage() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 py-20 bg-[#FFF3EE]">
-        <h2 className="text-4xl font-bold text-amber-900 mb-6">
-          Your Cart is Empty
-        </h2>
-        <Link
-          href="/"
-          className="text-[#FF5506] text-lg font-semibold hover:underline"
-        >
-          Continue Shopping
-        </Link>
-      </div>
+      <>
+        <Header />
+
+        <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 py-20 bg-[#FFF3EE]">
+          <h2 className="text-4xl font-bold text-amber-900 mb-6">
+            Your Cart is Empty
+          </h2>
+          <Link
+            href="/"
+            className="text-[#FF5506] text-lg font-semibold hover:underline"
+          >
+            Continue Shopping
+          </Link>
+        </div>
+        <Footer />
+      </>
     );
   }
 
@@ -113,11 +118,11 @@ export default function CartPage() {
                       onChange={(e) =>
                         updateQuantity(item.id, Number(e.target.value))
                       }
-                      className="w-12 text-center border-x border-amber-900 focus:outline-none"
+                      className="w-12 text-center border-x border-amber-900 focus:outline-none text-amber-700"
                     />
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-10 h-10 bg-amber-900 text-white font-bold"
+                      className="w-10 h-10 bg-amber-900 font-bold"
                     >
                       +
                     </button>

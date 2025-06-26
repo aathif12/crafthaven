@@ -103,11 +103,11 @@ export default function BuyPage() {
                     onChange={(e) =>
                       handleQuantityChange(Number(e.target.value))
                     }
-                    className="w-20 text-center border-x border-amber-900 focus:outline-none text-lg"
+                    className="w-20 text-center border-x border-amber-900 focus:outline-none text-lg text-amber-900"
                   />
                   <button
                     onClick={() => handleQuantityChange(quantity + 1)}
-                    className="w-12 h-12 bg-amber-900 text-white hover:bg-amber-700 font-bold"
+                    className="w-12 h-12 bg-[#FF5506] text-white hover:bg-amber-700 font-bold"
                   >
                     +
                   </button>
