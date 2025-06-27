@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -21,6 +22,56 @@ export default function CartPage() {
 
   const formatCurrency = (amount: number) =>
     "Rs. " + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // State for related products
+  const [related, setRelated] = useState<any[]>([]);
+
+  // Get unique categories from cart items
+  const categoriesInCart = Array.from(
+    new Set(
+      cartItems
+        .map((item) =>
+          typeof item.category === "object" ? item.category.slug : item.category
+        )
+        .filter(Boolean)
+    )
+  );
+
+  // Fetch related products from all categories in cart
+  useEffect(() => {
+    if (categoriesInCart.length === 0) {
+      setRelated([]);
+      return;
+    }
+
+    // Fetch products from all categories and combine results
+    Promise.all(
+      categoriesInCart.map((cat) =>
+        fetch(`http://localhost:8080/api/products/category/${cat}`).then(
+          (res) => res.json()
+        )
+      )
+    )
+      .then((allData) => {
+        // Flatten array of arrays
+        const combined = allData.flat();
+
+        // Filter out products already in cart by title or id
+        const filtered = combined.filter(
+          (item: any) =>
+            !cartItems.some((cartItem) => cartItem.title === item.title)
+        );
+
+        // Remove duplicates by id if any
+        const uniqueRelated = filtered.filter(
+          (item, index, self) =>
+            index === self.findIndex((t) => t.id === item.id)
+        );
+
+        setRelated(uniqueRelated);
+      })
+      .catch(() => setRelated([]));
+  }, [categoriesInCart, cartItems]);
 
   if (cartItems.length === 0) {
     return (
@@ -182,6 +233,53 @@ export default function CartPage() {
             </button>
           </aside>
         </div>
+
+        {/* Related Products Section */}
+        {related.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-3xl font-bold mb-8 text-amber-900">
+              You May Also Like
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+              {related.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-xl shadow hover:shadow-md transition p-4"
+                >
+                  <div className="relative w-full h-40 mb-3 rounded overflow-hidden bg-gray-100">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold text-[#FF5506] truncate">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-2 truncate">
+                    {item.description}
+                  </p>
+                  <p className="text-amber-700 font-bold mb-2">
+                    Rs. {item.price.toFixed(2)}
+                  </p>
+                  <Link
+                    href={`/buy?title=${encodeURIComponent(item.title)}&price=${
+                      item.price
+                    }&desc=${encodeURIComponent(
+                      item.description
+                    )}&image=${encodeURIComponent(item.imageUrl)}&category=${
+                      item.category?.slug || item.category
+                    }`}
+                    className="inline-block mt-2 px-4 py-2 bg-[#FF5506] text-white rounded hover:bg-red-600 text-sm"
+                  >
+                    View
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
       <Footer />
     </>

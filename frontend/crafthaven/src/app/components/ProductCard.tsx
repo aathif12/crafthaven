@@ -10,6 +10,10 @@ type Product = {
   price: number;
   description: string;
   imageUrl: string;
+  category?: {
+    slug: string;
+  };
+  sku?: string;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -17,18 +21,27 @@ export default function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
 
   const handleBuyNow = () => {
-    router.push(
-      `/buy?title=${encodeURIComponent(product.title)}&price=${
-        product.price
-      }&image=${encodeURIComponent(product.imageUrl)}&desc=${encodeURIComponent(
-        product.description
-      )}`
-    );
+    const query = new URLSearchParams({
+      title: product.title,
+      price: product.price.toString(),
+      image: product.imageUrl,
+      desc: product.description,
+    });
+
+    if (product.category?.slug) {
+      query.append("category", product.category.slug);
+    }
+
+    if (product.sku) {
+      query.append("sku", product.sku);
+    }
+
+    router.push(`/buy?${query.toString()}`);
   };
 
   return (
     <div className="bg-white rounded-xl shadow-md p-4 flex flex-col justify-between">
-      <div className="relative w-full h-100 mb-4 rounded-xl overflow-hidden p-4 ">
+      <div className="relative w-full h-100 mb-4 rounded-xl overflow-hidden p-4">
         {product.imageUrl ? (
           <Image
             src={product.imageUrl}

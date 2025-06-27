@@ -33,11 +33,22 @@ export default function BuyPage() {
 
   useEffect(() => {
     if (categoryParam) {
+      console.log("Fetching related products for category:", categoryParam);
       fetch(`http://localhost:8080/api/products/category/${categoryParam}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`API error: ${res.status}`);
+          }
+          return res.json();
+        })
         .then((data) => {
+          console.log("Fetched related products:", data);
           const filtered = data.filter((item: any) => item.title !== title);
           setRelated(filtered);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch related products:", error);
+          setRelated([]);
         });
     }
   }, [categoryParam, title]);
@@ -45,7 +56,7 @@ export default function BuyPage() {
   return (
     <>
       <Header />
-      <div className=" bg-[#FFF3EE]">
+      <div className="bg-[#FFF3EE]">
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row gap-12">
@@ -145,7 +156,6 @@ export default function BuyPage() {
               </div>
             </section>
           </div>
-
           {related.length > 0 && (
             <section className="mt-20">
               <h2 className="text-3xl font-bold mb-6 text-amber-900">
@@ -192,8 +202,8 @@ export default function BuyPage() {
             </section>
           )}
         </main>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }
