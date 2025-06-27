@@ -44,12 +44,17 @@ export default function Header() {
       <div className="max-w-9xl mx-auto flex justify-between items-center">
         {/* Left: Navigation + Search */}
         <div className="flex items-center space-x-6 flex-1">
-          <Link href="/" className="flex items-center ml-6">
-            <img src="/logo.png" alt="CraftHaven Logo" className="h-8 w-auto" />
-            <span className="ml-2 text-xl font-semibold text-gray-800 font-serif">
+          <Link href="/" className="flex flex-col items-center ml-6">
+            <img
+              src="/logo.png"
+              alt="CraftHaven Logo"
+              className="h-24 w-auto"
+            />
+            <span className="text-xl font-semibold text-gray-950 font-serif text-center -mt-10">
               CraftHaven
             </span>
           </Link>
+
           {/* Search Bar */}
           <div className="relative hidden md:block flex-1">
             <form onSubmit={handleSearch} className="flex">
