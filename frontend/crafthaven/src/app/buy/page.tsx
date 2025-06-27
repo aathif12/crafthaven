@@ -117,16 +117,25 @@ export default function BuyPage() {
                 </p>
               </div>
               <div className="flex flex-col space-y-4">
-                <button
-                  disabled={!isPayable}
-                  className={`w-full py-4 rounded-2xl font-bold text-white text-xl transition focus:outline-none focus:ring-4 focus:ring-amber-400 ${
-                    isPayable
-                      ? "bg-[#FF5506] hover:bg-red-600"
-                      : "bg-gray-400 cursor-not-allowed"
-                  }`}
-                >
-                  Proceed to Payment
-                </button>
+                {isPayable ? (
+                  <Link
+                    href={`/checkout?title=${encodeURIComponent(
+                      title
+                    )}&price=${priceNumber}&desc=${encodeURIComponent(
+                      desc
+                    )}&image=${encodeURIComponent(image)}&quantity=${quantity}`}
+                    className="w-full block text-center py-4 rounded-2xl font-bold text-white text-xl bg-[#FF5506] hover:bg-red-600 transition focus:outline-none focus:ring-4 focus:ring-amber-400"
+                  >
+                    Proceed to Payment
+                  </Link>
+                ) : (
+                  <button
+                    disabled
+                    className="w-full py-4 rounded-2xl font-bold text-white text-xl bg-gray-400 cursor-not-allowed"
+                  >
+                    Proceed to Payment
+                  </button>
+                )}
                 <Link
                   href="/cart"
                   className="text-center text-amber-900 font-semibold hover:underline"
