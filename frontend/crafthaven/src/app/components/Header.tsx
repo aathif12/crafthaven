@@ -103,10 +103,10 @@ export default function Header() {
               Clay Items
             </Link>
             <Link
-              href="/category/home-living"
+              href="/category/textiles"
               className="hover:text-orange-600 transition"
             >
-              Home & Living
+              Textiles
             </Link>
 
             <MiniCart />
