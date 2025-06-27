@@ -23,6 +23,7 @@ export default function CategoryPage() {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState<"" | "asc" | "desc">("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,9 +36,20 @@ export default function CategoryPage() {
     fetchProducts();
   }, []);
 
+  // Filter products by category slug
   const filtered = products.filter(
     (product) => product.category?.slug?.toLowerCase() === slug
   );
+
+  // Sort filtered products based on sortOrder
+  const sortedProducts = [...filtered].sort((a, b) => {
+    if (sortOrder === "asc") {
+      return a.price - b.price;
+    } else if (sortOrder === "desc") {
+      return b.price - a.price;
+    }
+    return 0; // no sorting, keep original order
+  });
 
   return (
     <>
@@ -47,11 +59,33 @@ export default function CategoryPage() {
           {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : "Products"}
         </h1>
 
+        {/* Sort Dropdown */}
+        <div className="max-w-3xl mx-auto mb-6 flex justify-end">
+          <label
+            htmlFor="sortPrice"
+            className="mr-2 font-black text-amber-800 text-lg"
+          >
+            Sort by price:
+          </label>
+          <select
+            id="sortPrice"
+            value={sortOrder}
+            onChange={(e) =>
+              setSortOrder(e.target.value as "" | "asc" | "desc")
+            }
+            className="border rounded p-1 text-amber-700 bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-500"
+          >
+            <option value="">-- Select --</option>
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
+          </select>
+        </div>
+
         {loading ? (
           <p>Loading...</p>
-        ) : filtered.length > 0 ? (
+        ) : sortedProducts.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {filtered.map((product) => (
+            {sortedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
