@@ -58,7 +58,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </button>
         <button
           onClick={handleBuyNow}
-          className="bg-[#FF5506] text-white font-bold px-4 py-2 rounded hover:bg-green-600 text-sm w-full"
+          className="bg-[#FF5506] text-white font-bold px-4 py-2 rounded hover:bg-red-600 text-sm w-full"
         >
           Buy
         </button>
