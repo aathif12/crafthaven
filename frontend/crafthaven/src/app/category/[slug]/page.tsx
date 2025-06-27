@@ -3,6 +3,8 @@
 import ProductCard from "@/app/components/ProductCard";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 
 type Product = {
   id: number;
@@ -38,22 +40,26 @@ export default function CategoryPage() {
   );
 
   return (
-    <div className="px-4 bg-orange-300">
-      <h2 className="text-xl font-bold mb-4">
-        Showing results for "{slug?.replace("-", " ")}"
-      </h2>
+    <>
+      <Header />
+      <div className="px-4 bg-orange-300">
+        <h1 className="text-3xl font-bold text-gray-800 text-center py-6">
+          {slug ? slug.charAt(0).toUpperCase() + slug.slice(1) : "Products"}
+        </h1>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : filtered.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <p>No products found in this category.</p>
-      )}
-    </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : filtered.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {filtered.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <p>No products found in this category.</p>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 }
