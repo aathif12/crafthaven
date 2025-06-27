@@ -20,4 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByTitleContainingIgnoreCase(String keyword);
 
+    @Query("SELECT p FROM Product p JOIN p.category c WHERE c.slug = :slug")
+    List<Product> findByCategorySlug(@Param("slug") String slug);
+
 }

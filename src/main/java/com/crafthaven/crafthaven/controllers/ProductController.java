@@ -24,6 +24,11 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+    @GetMapping("/category/{slug}")
+    public List<Product> getProductsByCategory(@PathVariable String slug) {
+        return productRepository.findByCategorySlug(slug);
+    }
+
     @GetMapping
     public List<Product> getProducts() {
         return productRepository.findAllWithCategory();
