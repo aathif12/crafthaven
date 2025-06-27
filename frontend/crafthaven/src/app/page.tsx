@@ -5,6 +5,7 @@ import ImageUploader from "./components/ImageUploader";
 import Ingredients from "./components/Ingredients";
 import ProductCard from "./components/ProductCard";
 import ProductList from "./components/ProductList";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import ShoppingCart from "./components/ShoppingCart";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <footer className="flex gap-[24px] flex-wrap items-center justify-center">
         <Footer />
       </footer>
+      <ScrollToTopButton />
     </div>
   );
 }

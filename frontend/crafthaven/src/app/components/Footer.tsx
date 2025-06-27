@@ -17,6 +17,13 @@ export default function Footer() {
             Discover unique handmade crafts, jewelry, art prints, and more from
             talented creators.
           </p>
+          <Link href="/" className="flex items-center mt-4">
+            <img
+              src="/logo.png"
+              alt="CraftHaven Logo"
+              className="h-50 w-auto filter invert brightness-0"
+            />
+          </Link>
         </div>
 
         {/* Quick Links */}
